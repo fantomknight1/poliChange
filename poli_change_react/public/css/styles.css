@@ -1,0 +1,83 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+#allBody {
+  width: 98vw
+}
+
+#navbar {
+  height: 100px;
+  width: 98vw;
+  position: relative;
+  border-bottom: 1px solid black;
+}
+
+.navContainer {
+  height: 100px;
+  width: 98vw;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.outerNavLogo{
+  display: flex;
+  align-items: center;
+}
+
+.outerNavTitle{
+  display: flex;
+  align-items: center;
+}
+
+#navTitle{
+  padding-left: 15px;
+}
+.loggedOutFormUL {
+
+}
+#signInForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.allButtons {
+  height: 13px;
+  width: 75px;
+  font-size: 10px;
+}
+
+#outerSignupButton {
+  display: flex;
+  justify-content: center;
+}
+
+#mainBody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#mainColumn {
+  height: 900px;
+  width: 73vw;
+  background-color: rgba(0, 209, 255, 0.13);
+  border-right: 1px solid blue;
+}
+
+#sideColumn {
+  height: 900px;
+  width: 24.8vw;
+  background-color: rgba(255, 0, 0, 0.06);
+  border-left: 1px solid red;
+}
