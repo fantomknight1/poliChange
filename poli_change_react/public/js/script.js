@@ -8,12 +8,12 @@ const Router          = ReactRouter.Router;
 const Route           = ReactRouter.Route;
 const Navigation      = ReactRouter.Navigation;
 const Link            = ReactRouter.Link;
-const BrowserHistory  = ReactRouter.BrowserHistory
+const browserHistory  = ReactRouter.browserHistory
 
 const auth            = require( './auth.js' );
 const Signup          = require( './components/signup.js' );
 const EditProfile     = require( './components/editProfile.js' );
-const listings        = require( './components/listings.js' );
+const Listings        = require( './components/listings.js' );
 const Profiles        = require( './components/profiles.js' );
 const Login           = require( './components/nav_components/login.js' );
 const Logout          = require( './components/nav_components/logout.js' );
@@ -74,9 +74,9 @@ const App = React.createClass({
     this.setState( { advSearch : this.state.advSearch } )
   },
 
-  toggleSuperPac : function() {
-    //fill this out with a toggle
-  },
+  // toggleSuperPac : function() {
+  //   //fill this out with a toggle
+  // },
 
   edit : function() {
     this.state.edit = true;
@@ -176,9 +176,14 @@ const App = React.createClass({
 } );
 
 const routes = (
-  <Router history={ BrowserHistory }>
+  <Router history={ browserHistory }>
     <Route path="/" component={ App }>
       <Route path="login" component={ Login }/>
+      <Route path="logout" component={ Logout }/>
+      <Route path="signup" component={ Signup }/>
+      <Route path="nav" component={ Nav }/>
+      <Route path="search" component={ Search }/>
+      <Route path="listings" component={ Listings }/>
     </Route>
   </Router>
 

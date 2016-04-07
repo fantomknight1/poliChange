@@ -1,4 +1,5 @@
 const React                   = require( 'react' );
+const $                       = require( 'jquery' );
 
 const Search = React.createClass( {
 
@@ -8,6 +9,20 @@ const Search = React.createClass( {
 
     let search = {
       // put search parameters here
+      q:
+
+        $.ajax(
+          {
+            url : 'http://localhost:9001/records',
+            data : data,
+            type : 'get',
+            }
+          }
+        )
+        .done( () => {
+          this.props.updated();
+        } )
+      }
     }
     console.log( 'search result: ', search )
     this.refs.searchForm.reset();
