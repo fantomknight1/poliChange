@@ -3,11 +3,12 @@ const React = require( 'react' );
 const Listings = React.createClass( {
   handleSubmit : function( event ){
     event.preventDefault();
-    this.props.savedPolitician(this.props.candidate_Entity, this.props.general_party, this.props.state );
+    this.props.savedCandidate(this.props.candidate, this.props.specific_party, this.props.amount, this.props.contributor, this.props.date );
   },
 
   render() {
     return (
+      <div>
       <form onSubmit={ this.handleSubmit }>
         <div className="starter-template">
           <div className="individualListing">
@@ -15,13 +16,19 @@ const Listings = React.createClass( {
               <ul id="res">
                 <p>
                   <li>
-                    <strong>Politician Name:</strong> { this.props.candidate_Entity }
+                    <strong>candidate:</strong> { this.props.candidate }
                   </li>
                   <li>
-                    <strong>Party:</strong> { this.props.general_party }
+                    <strong>Party:</strong> { this.props.specific_party }
                   </li>
                   <li>
-                    <strong>State:</strong> { this.props.state }
+                    <strong>Amount:</strong> { this.props.amount }
+                  </li>
+                  <li>
+                    <strong>Contributor:</strong> { this.props.contributor }
+                  </li>
+                  <li>
+                    <strong>Date:</strong> { this.props.date }
                   </li>
                 </p>
 
@@ -31,6 +38,7 @@ const Listings = React.createClass( {
           </div>
         </div>
       </form>
+      </div>
     )
   }
 })

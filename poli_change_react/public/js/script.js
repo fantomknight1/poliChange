@@ -15,6 +15,8 @@ const Signup          = require( './components/signup.js' );
 const EditProfile     = require( './components/editProfile.js' );
 const Listings        = require( './components/listings.js' );
 const Profiles        = require( './components/profiles.js' );
+// const SavedCandidates = require( './components/savedCandidates.js');
+// const Candidate       = require( './components/candidate.js');
 const Login           = require( './components/nav_components/login.js' );
 const Logout          = require( './components/nav_components/logout.js' );
 const Nav             = require( './components/nav_components/nav.js' );
@@ -30,6 +32,35 @@ const App = React.createClass({
       advSearch : false,
       profile : false,
       edit : false,
+      politician : true,
+      politicianData : []
+    }
+  },
+
+
+  addSearchCandidate : function ( newSearch ){
+    var data = {
+      candidate: newSearch.candidate,
+      contributor: newSearch.contributor
+    }
+
+    if ( this.state.politician == true ){
+      $.get( 'http://localhost:9001/records/search/?candidate='+data['candidate'],
+      {
+        data: data,
+      })
+      .done( ( data ) => {
+        this.state.politicianData = data;
+        this.state.signupBox = false;
+        this.state.advSearch = false;
+        this.state.politician = true;
+        this.state.contributor = true;
+        // this.state.profile = false;
+        this.setState( {politicianData : this.state.politicianData, signupBox : this.state.signupBox, AdvSearch : this.state.AdvSearch, politician : this.state.politician, contributor : this.state.contributor})
+      })
+    } else {
+      this.state.politicianData = [];
+      this.setState( { politicianData : this.state.politicianData} )
     }
   },
 
@@ -65,13 +96,15 @@ const App = React.createClass({
   },
 
   handleAdvance : function() {
+    this.state.politician = false;
     this.state.advSearch = true;
-    this.setState( { advSearch : this.state.advSearch } )
+    this.setState( { advSearch : this.state.advSearch, politician : this.state.politician } )
   },
 
   handleBasic : function() {
+    this.state.politician = false;
     this.state.advSearch = false;
-    this.setState( { advSearch : this.state.advSearch } )
+    this.setState( { advSearch : this.state.advSearch, politician : this.state.politician } )
   },
 
   // toggleSuperPac : function() {
@@ -117,7 +150,7 @@ const App = React.createClass({
 
     let regularSearch =
       <div>
-        <Search />
+        <Search addSearchCandidate={ this.addSearchCandidate } addSearchContributor={ this.addSearchContributor }/>
         <div id= "adSearch">
           <div id = "adSearchInner">
             <a id = "aSearchContainer" onClick = { this.handleAdvance }> Advanced Search </a>
@@ -127,13 +160,18 @@ const App = React.createClass({
 
     let advSearch =
       <div>
-        <AdvSearch />
+        <AdvSearch addSearchCandidate={ this.addSearchCandidate } addSearchContributor={ this.addSearchContributor }/>
         <div id= "adSearch">
           <div id = "adSearchInner">
             <a id = "aSearchContainer" onClick = { this.handleBasic }> Basic Search </a>
           </div>
         </div>
       </div>
+
+    let showMatchingCandidate = [];
+      this.state.politicianData.forEach( ( el ) => {
+        showMatchingCandidate.push( <Listings candidate={ el.candidate } specific_party={ el.specific_party} amount={ el.amount } contributor={ el.contributor } date={ el.date }/>)
+      })
 
     let profilePage =
       <div>
@@ -151,7 +189,9 @@ const App = React.createClass({
         <div className="row" id="mainBody">
           <div className="column" id="mainColumn">
             <div className="row" id="display">
-
+              <div className="row" id="listings">
+                { showMatchingCandidate }
+              </div>
             </div>
           </div>
           <div className="column" id="sideColumn">
@@ -162,9 +202,7 @@ const App = React.createClass({
                 </div>
               </div>
             </div>
-            <div className="row" id="listings">
 
-            </div>
           </div>
         </div>
 

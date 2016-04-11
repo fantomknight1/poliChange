@@ -14,7 +14,8 @@ Task.create({name:'Get last Stuff Done', status:false })
 # sector:, amount:, date:, last_updated:, candidate:, candidate_entity:, specific_party:,
 # general_party:})
 
-my_data = HTTParty.get("http://api.followthemoney.org/?p=2&rpp=100&y=2016&f-core=1&f-fc=1&c-exi=1&gro=d-id,c-t-id&APIKey=d83d4b05a2eae24efcbf8dd91f6e934b&mode=json", {timeout: 15000})
+pageNumber = '13'
+my_data = HTTParty.get("http://api.followthemoney.org/?p="+pageNumber+"&rpp=100&y=2016&f-core=1&f-fc=1&c-exi=1&gro=d-id,c-t-id&APIKey=d83d4b05a2eae24efcbf8dd91f6e934b&mode=json", {timeout: 15000})
 my_data['records'].each do |r|
   record = Record.new(record_id: r['record_id'], filer: r['Filer']['Filer'], original_name: r['Original_Name']['Original_Name'], contributor: r['Contributor']['Contributor'],
     business: r['Specific_Business']['Specifict_Business'], industry: r['General_Industry']['General_Industry'], sector: r['Broad_Sector']['Broad_Sector'],

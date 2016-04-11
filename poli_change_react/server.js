@@ -7,7 +7,6 @@ const express         = require( 'express' );
 const logger          = require( 'morgan' );
 const expressJwt      = require( 'express-jwt');
 const path            = require( 'path' );
-const db              = require( './db/pgp.js' );
 const bodyParser      = require( 'body-parser' );
 const jsonWebToken    = require( 'jsonwebtoken' );
 const bcrypt          = require( 'bcrypt' );

@@ -6,25 +6,17 @@ const Search = React.createClass( {
   handleSubmit : function( event ){
     event.preventDefault()
     console.log( "search function clicked" )
-
-    let search = {
       // put search parameters here
-      q:
-
-        $.ajax(
-          {
-            url : 'http://localhost:9001/records',
-            data : data,
-            type : 'get',
-            }
-          }
-        )
-        .done( () => {
-          this.props.updated();
-        } )
-      }
+    let candidate = {
+      candidate : this.refs.searchInput.value
     }
-    console.log( 'search result: ', search )
+
+    $.get('http://localhost:9001/records/search/?candidate='+candidate['candidate'])
+    .done( (data) => {
+      console.log( data )
+    })
+    // console.log( 'search result: ', search )
+    this.props.addSearchCandidate( candidate )
     this.refs.searchForm.reset();
   },
 
